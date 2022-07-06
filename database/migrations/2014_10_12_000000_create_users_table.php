@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('phone');
-            $table->string('role');
-            $table->string('status');
+            $table->enum('status', ['active', 'inactive', 'pending']);
             $table->string('dob');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

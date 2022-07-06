@@ -40,10 +40,13 @@ class AuthController extends Controller
                 'message' => 'Login information is invalid.'
             ], 401);
         }
-
         $user = User::where('email', $request['email'])->firstOrFail();
+        if ($user->status == 'inactive') {
+            return response()->json([
+                'message' => 'User is not Active.'
+            ], 401);
+        }
         $token = $user->createToken('authToken')->plainTextToken;
-
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
